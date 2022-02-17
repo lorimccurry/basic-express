@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 
 const messagesRouter = require('./routes/messages.router');
 const friendsRouter = require('./routes/friends.router');
@@ -15,6 +16,8 @@ app.use((req, res, next) => {
   const delta = Date.now() - start;
   console.log(`${req.method} ${req.baseUrl} ${delta}ms`);
 });
+
+app.use('/site', express.static(path.join(__dirname, 'public')));
 
 // looks at request.body for a js object if content-type is application json
 app.use(express.json());
