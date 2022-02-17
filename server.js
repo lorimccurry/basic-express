@@ -6,6 +6,9 @@ const friendsRouter = require('./routes/friends.router');
 
 const app = express();
 
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'));
+
 const PORT = 3000;
 
 app.use((req, res, next) => {
@@ -22,6 +25,12 @@ app.use('/site', express.static(path.join(__dirname, 'public')));
 // looks at request.body for a js object if content-type is application json
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  res.render('index.hbs', {
+    title: 'My Friends are Very Clever',
+    caption: "Let's go skiiing!",
+  });
+});
 app.use('/friends', friendsRouter);
 app.use('/messages', messagesRouter);
 
